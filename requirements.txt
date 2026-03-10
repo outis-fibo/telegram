@@ -4,4 +4,5 @@ schedule
 yfinance
 pandas
 google-genai
-duckduckgo-search
+ddgs
+
