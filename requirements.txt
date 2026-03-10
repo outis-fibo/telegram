@@ -3,5 +3,5 @@ requests
 schedule
 yfinance
 pandas
-google-generativeai
+google-genai
 duckduckgo-search
