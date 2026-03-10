@@ -86,7 +86,7 @@ KÜRESEL RİSK SEVİYESİ (Düşük / Orta / Yüksek)
 Sadece finans sistemi için önemli olanları analiz et.
 """
     response = client.models.generate_content(
-        model="gemini-1.5-flash",
+        model="gemini-2.0-flash",
         contents=prompt
     )
     return response.text
@@ -146,4 +146,5 @@ if __name__ == "__main__":
     while True:
         schedule.run_pending()
         time.sleep(60)
+
 
