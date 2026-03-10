@@ -4,7 +4,7 @@ import schedule
 import time
 from datetime import datetime
 import google.genai as genai
-from duckduckgo_search import DDGS
+from ddgs import DDGS
 import yfinance as yf
 import os
 
@@ -146,3 +146,4 @@ if __name__ == "__main__":
     while True:
         schedule.run_pending()
         time.sleep(60)
+
