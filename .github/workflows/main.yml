@@ -2,17 +2,22 @@ name: Financial Brief Bot
 
 on:
   schedule:
-    # Günde 3 defa çalıştır: UTC saatiyle 06:00, 12:00 ve 18:00
-    # (Türkiye saati ile yaklaşık 09:00, 15:00 ve 21:00'e denk gelir)
-    - cron: '0 9,15,21 * * *' 
-  workflow_dispatch: # İstediğin zaman GitHub üzerinden manuel tetikleme butonu
+    - cron: '0 6 * * *'   # TR 09:00
+    - cron: '0 12 * * *'  # TR 15:00
+    - cron: '0 19 * * *'  # TR 22:00
+  workflow_dispatch:
 
 jobs:
   run-bot:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -20,13 +25,21 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
+        run: pip install -r requirements.txt
 
-      - name: Run Script
+      - name: Run bot
         env:
-          # GitHub Secrets'tan alınacak API anahtarları
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
+          GITHUB_ACTIONS: "true"
         run: python main.py
+
+      - name: Hafızayı kaydet
+        if: always()
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add weekly_memory.json telegram_offset.txt 2>/dev/null || true
+          git diff --staged --quiet || git commit -m "chore: hafıza güncellendi [skip ci]"
+          git push || true
