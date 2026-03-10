@@ -1,0 +1,7 @@
+feedparser
+requests
+schedule
+yfinance
+pandas
+google-generativeai
+duckduckgo-search
