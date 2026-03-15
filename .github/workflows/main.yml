@@ -2,9 +2,9 @@ name: Financial Brief Bot
 
 on:
   schedule:
-    - cron: '0 6 * * *'   # TR 09:00
-    - cron: '0 12 * * *'  # TR 15:00
-    - cron: '0 19 * * *'  # TR 22:00
+    - cron: '0 8 * * *'   # TR 09:00
+    - cron: '0 14 * * *'  # TR 15:00
+    - cron: '0 21 * * *'  # TR 22:00
   workflow_dispatch:
 
 jobs:
