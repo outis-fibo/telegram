@@ -56,8 +56,11 @@ def send_text(message):
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
     for i in range(0, len(message), 4096):
         resp = requests.post(url, data={"chat_id": CHAT_ID, "text": message[i:i+4096]})
-        if not resp.json().get("ok"):
+        result = resp.json()
+        if not result.get("ok"):
             print(f"⚠️ Telegram metin hatası: {resp.text}")
+        else:
+            print(f"✅ Telegram mesaj gönderildi (karakter: {len(message[i:i+4096])})")
 
 def send_photo(image_bytes, caption=""):
     url  = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendPhoto"
@@ -213,7 +216,7 @@ def build_weekly_comparison(memory):
 def gemini(prompt, max_tokens=1000):
     time.sleep(5)  # Rate limit koruması: 15 istek/dk
     response = client.models.generate_content(
-        model="gemini-2.0-flash",
+        model="gemini-2.0-flash-001",
         contents=prompt
     )
     return response.text.strip()
