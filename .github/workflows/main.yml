@@ -2,9 +2,9 @@ name: Financial Brief Bot
 
 on:
   schedule:
-    - cron: '0 8 * * *'   # TR 09:00
-    - cron: '0 14 * * *'  # TR 15:00
-    - cron: '0 21 * * *'  # TR 22:00
+    - cron: '0 11 * * *'   # TR 09:00
+    - cron: '0 15 * * *'  # TR 15:00
+    - cron: '0 22 * * *'  # TR 22:00
   workflow_dispatch:
 
 jobs:
@@ -15,12 +15,12 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
